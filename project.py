@@ -130,17 +130,19 @@ print('Viterbi Algorithm Accuracy: ',accuracy*100)
 
 # Code to test all the test sentences
 # This takes lot of time
-print('Testing all the sentences: ')
-test_tagged_words = [tup for sent in test_set for tup in sent]
-test_untagged_words = [tup[0] for sent in test_set for tup in sent]
-test_untagged_words
+# therefore I have commented this section
 
-start = time.time()
-tagged_seq = Viterbi(test_untagged_words)
-end = time.time()
-difference = end-start
+# print('Testing all the sentences: ')
+# test_tagged_words = [tup for sent in test_set for tup in sent]
+# test_untagged_words = [tup[0] for sent in test_set for tup in sent]
+# test_untagged_words
 
-print("Time taken in seconds: ", difference)
+# start = time.time()
+# tagged_seq = Viterbi(test_untagged_words)
+# end = time.time()
+# difference = end-start
+
+# print("Time taken in seconds: ", difference)
 
 # accuracy
 check = [i for i, j in zip(test_tagged_words, test_untagged_words) if i == j]
