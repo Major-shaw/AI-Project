@@ -23,8 +23,8 @@ def transition_prob(t2, t1, train_bag):
     tags = [pair[1] for pair in train_bag]
     count_t1 = len([t for t in tags if t==t1])
     count_t2_t1 = 0
-    for index in range(len(tags)-1):
-        if tags[index]==t1 and tags[index+1] == t2:
+    for i in range(len(tags)-1):
+        if tags[i]==t1 and tags[i + 1] == t2:
             count_t2_t1 += 1
     return (count_t2_t1, count_t1)
 
