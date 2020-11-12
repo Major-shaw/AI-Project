@@ -6,6 +6,7 @@ import random
 from sklearn.model_selection import train_test_split
 import pprint
 import time
+from collections import defaultdict
 
 # compute Emission Probability
 def emission_prob(word, tag, train_bag):
@@ -39,29 +40,32 @@ def tag_matrix(train_bag, tags):
 
 # convert the matrix to a df for better readability
     tags_df = pd.DataFrame(tags_matrix, columns = list(tags), index=list(tags))
-    return tags_df
+    return tags_df, tags_matrix
 
 # Veterbi Algorithm for POS tagging
-def Viterbi(words, train_bag, tags_df):
+def Viterbi(words, train_bag, tags_matrix):
     state = []
-    T = list(set([pair[1] for pair in train_bag]))
+    tag_list = list(set([pair[1] for pair in train_bag]))
+    tags_dict = defaultdict(list)
+    for i in range(len(tag_list)):
+        tags_dict[tag_list[i]].append(i)
 
     for key, word in enumerate(words):
         #initialise list of probability column for a given observation
         p = []
-        for tag in T:
+        for tag in tag_list:
             if key == 0:
-                transition_p = tags_df.loc['.', tag]
+                transition_p = tags_matrix[tags_dict['.'][0]][tags_dict[tag][0]]
             else:
-                transition_p = tags_df.loc[state[-1], tag]
+                transition_p = tags_matrix[tags_dict[state[-1]][0]][tags_dict[tag][0]]
 
-            # compute emission and state probabilities
+            # finding emission and current probabilities
             emission_p = emission_prob(words[key], tag, train_bag)
-            state_probability = emission_p * transition_p
-            p.append(state_probability)
+            curr_probability = emission_p * transition_p
+            p.append(curr_probability)
 
-        pmax = max(p)
-        # getting state for which probability is maximum
-        state_max = T[p.index(pmax)]
+        viterbi_value = max(p)
+
+        state_max = tag_list[p.index(viterbi_value)]
         state.append(state_max)
     return list(zip(words, state))
