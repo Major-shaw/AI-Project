@@ -32,8 +32,8 @@ print('Tags:', tags)
 # check total words in vocabulary
 vocab = {word for word,tag in train_tagged_words}
 
-tags_matrix = tag_matrix(train_tagged_words, tags)
-display(tags_matrix)
+tags_df, tags_matrix = tag_matrix(train_tagged_words, tags)
+display(tags_df)
 
 # Let's test our Viterbi algorithm on a few sample sentences of test dataset
 random.seed(1234)      #define a random seed to get same sentences when run multiple times
