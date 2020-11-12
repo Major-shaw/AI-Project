@@ -39,7 +39,7 @@ def tag_matrix(train_bag, tags):
 
 # convert the matrix to a df for better readability
     tags_df = pd.DataFrame(tags_matrix, columns = list(tags), index=list(tags))
-    return tags_df, tags_matrix
+    return tags_df
 
 # Veterbi Algorithm for POS tagging
 def Viterbi(words, train_bag, tags_df):
