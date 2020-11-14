@@ -13,9 +13,8 @@ def emission_prob(word, tag, train_bag):
     tag_list = [pair for pair in train_bag if pair[1] == tag]
     count_tag = len(tag_list)#total number of times the passed tag occurred in train_bag
     w_given_tag_list = [pair[0] for pair in tag_list if pair[0] == word]
-
-    #now calculate the total number of times the passed word occurred as the passed tag.
     count_w_given_tag = len(w_given_tag_list)
+# return the float value of the probability    
     return count_w_given_tag/ count_tag
 
 
@@ -38,11 +37,11 @@ def tag_matrix(train_bag, tags):
         for j, t2 in enumerate(list(tags)):
             tags_matrix[i, j] = transition_prob(t2, t1, train_bag)
 
-# convert the matrix to a df for better readability
+# convert the matrix to a dataframe for better visualisation
     tags_df = pd.DataFrame(tags_matrix, columns = list(tags), index=list(tags))
     return tags_df, tags_matrix
 
-# Veterbi Algorithm for POS tagging
+# Veterbi Algorithm
 def Viterbi(words, train_bag, tags_matrix):
     state = []
     tag_list = list(set([pair[1] for pair in train_bag]))
