@@ -35,13 +35,13 @@ vocab = {word for word,tag in train_tagged_words}
 tags_df, tags_matrix = tag_matrix(train_tagged_words, tags)
 display(tags_df)
 
-# Let's test our Viterbi algorithm on a few sample sentences of test dataset
+# Testing our Viterbi algorithm on a few samples of the test dataset
 random.seed(1234)      #define a random seed to get same sentences when run multiple times
 
 # choose random 10 numbers
 rndom = [random.randint(1,len(test_set)) for x in range(10)]
 
-# list of 10 sents on which we test the model
+# list of 10 sentences on which we test the model
 test_run = [test_set[i] for i in rndom]
 
 # list of tagged words
@@ -50,8 +50,8 @@ test_run_base = [tup for sent in test_run for tup in sent]
 # list of untagged words
 test_tagged_words = [tup[0] for sent in test_run for tup in sent]
 
-#Here We will only test 10 sentences to check the accuracy
-#as testing the whole training set takes huge amount of time
+# Here We will only test 10 sentences to check the accuracy
+# as testing the whole training set takes huge amount of time
 print('Testing only 10 sentences: ')
 start = time.time()
 tagged_seq = Viterbi(test_tagged_words, train_tagged_words, tags_matrix)
@@ -86,8 +86,8 @@ print('Viterbi Algorithm Accuracy: ',accuracy*100)
 # accuracy = len(check)/len(tagged_seq)
 # print('Viterbi Algorithm Accuracy: ',accuracy*100)
 
-#Check how a sentence is tagged by the two POS taggers
-#and compare them
+#Check how a sentence is tagged by the model 
+
 print('Tagging input sentences based on the trained model:')
 while(True):
     test_sent = input('Enter the sentence: ')
